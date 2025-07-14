@@ -1,4 +1,4 @@
-package org.example.nivell2.exercici1;
+package org.example.nivell2.exercici1.module;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +9,6 @@ public class JsonSerializer {
     public void serialize(Object object) throws IOException {
         Class<?> clazz = object.getClass();
 
-        // Verificamos que la clase esté anotada con @JsonExport
         if (!clazz.isAnnotationPresent(JsonExport.class)) {
             throw new IllegalArgumentException("Missing @JsonExport annotation");
         }
@@ -17,7 +16,6 @@ public class JsonSerializer {
         JsonExport annotation = clazz.getAnnotation(JsonExport.class);
         String outputPath = annotation.path();
 
-        // Comenzamos a construir el contenido del JSON
         StringBuilder json = new StringBuilder("{\n");
 
         Field[] fields = clazz.getDeclaredFields();
@@ -27,7 +25,6 @@ public class JsonSerializer {
                 Object value = fields[i].get(object);
                 json.append("  \"").append(fields[i].getName()).append("\": ");
 
-                // Formateamos los valores
                 if (value instanceof String) {
                     json.append("\"").append(value).append("\"");
                 } else {
@@ -45,10 +42,9 @@ public class JsonSerializer {
 
         json.append("}");
 
-        // Escribimos el archivo en disco
         try (FileWriter writer = new FileWriter(outputPath)) {
             writer.write(json.toString());
-            System.out.println("✅ Objeto serializado correctamente en: " + outputPath);
+            System.out.println(" Objeto serializado correctamente en: " + outputPath);
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.nivell2.exercici1;
+package org.example.nivell2.exercici1.module;
 
 
 @JsonExport(path = "output/person.json")

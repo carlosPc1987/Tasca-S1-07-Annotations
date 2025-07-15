@@ -1,5 +1,6 @@
 package org.example.nivell2.exercici1.module;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -41,6 +42,8 @@ public class JsonSerializer {
         }
 
         json.append("}");
+        File archivo = new File("output/person.json");
+        archivo.getParentFile().mkdirs();
 
         try (FileWriter writer = new FileWriter(outputPath)) {
             writer.write(json.toString());
